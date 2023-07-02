@@ -37,8 +37,8 @@ function App() {
     let toggleBtn = document.getElementById("toggle-btn");
 
     registrationToggle
-      ? (toggleBtn.innerHTML = "Cadastrar")
-      : (toggleBtn.innerHTML = "Logar");
+      ? (toggleBtn.innerHTML = "Ir para página de cadastro")
+      : (toggleBtn.innerHTML = "Ir para página de Login");
     setRegistrationToggle(!registrationToggle);
   }
 
@@ -91,11 +91,13 @@ function App() {
             <Navbar.Toggle />
             <Navbar.Collapse className="justify-content-end">
               <Navbar.Text>
-                <form onSubmit={(e) => submitLogout(e)}>
-                  <Button type="submit" variant="light">
-                    Sair
-                  </Button>
-                </form>
+                <Button
+                  type="submit"
+                  variant="light"
+                  onClick={(e) => submitLogout(e)}
+                >
+                  Sair
+                </Button>
               </Navbar.Text>
             </Navbar.Collapse>
           </Container>
@@ -115,7 +117,7 @@ function App() {
           <Navbar.Collapse className="justify-content-end">
             <Navbar.Text>
               <Button id="toggle-btn" onClick={updateForm} variant="light">
-                Cadastrar
+                Ir para página de cadastro
               </Button>
             </Navbar.Text>
           </Navbar.Collapse>
@@ -123,6 +125,7 @@ function App() {
       </Navbar>
       {registrationToggle ? (
         <div className="center">
+          <h2>Cadastro</h2>
           <Form onSubmit={(e) => submitRegistration(e)}>
             <Form.Group className="mb-3" controlId="formBasicName">
               <Form.Label>Nome</Form.Label>
@@ -171,6 +174,7 @@ function App() {
         </div>
       ) : (
         <div className="center">
+          <h2>Login</h2>
           <Form onSubmit={(e) => submitLogin(e)}>
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label>Endereço de email</Form.Label>
