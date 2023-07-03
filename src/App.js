@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import axios from "axios";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
@@ -14,23 +14,12 @@ const client = axios.create({
 });
 
 function App() {
-  const [currentUser, setCurrentUser] = useState();
+  const [currentUser, setCurrentUser] = useState(null);
   const [registrationToggle, setRegistrationToggle] = useState(false);
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-
-  useEffect(() => {
-    client
-      .get("api/profile")
-      .then(function (res) {
-        setCurrentUser(true);
-      })
-      .catch(function (error) {
-        setCurrentUser(false);
-      });
-  }, []);
 
   function updateForm() {
     let toggleBtn = document.getElementById("toggle-btn");
@@ -39,6 +28,10 @@ function App() {
       ? (toggleBtn.innerHTML = "Ir para página de cadastro")
       : (toggleBtn.innerHTML = "Ir para página de Login");
     setRegistrationToggle(!registrationToggle);
+    setEmail("");
+    setName("");
+    setUsername("");
+    setPassword("");
   }
 
   function submitRegistration(e) {
@@ -65,14 +58,26 @@ function App() {
         password: password,
       })
       .then(function (res) {
-        setCurrentUser(true);
+        getProfile();
+        setEmail("");
+        setName("");
+        setUsername("");
+        setPassword("");
       });
   }
 
   function submitLogout(e) {
     e.preventDefault();
     client.post("api/logout", { withCredentials: true }).then(function (res) {
-      setCurrentUser(false);
+      setCurrentUser(null);
+      setRegistrationToggle(false);
+    });
+  }
+
+  function getProfile() {
+    client.get("api/profile").then(function (res) {
+      setCurrentUser(res.data.profile);
+      console.log(currentUser);
     });
   }
 
