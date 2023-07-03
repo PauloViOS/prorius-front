@@ -79,7 +79,6 @@ function App() {
   function getProfile() {
     client.get("api/profile").then(function (res) {
       setCurrentUser(res.data.profile);
-      console.log(currentUser);
     });
   }
 
