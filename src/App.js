@@ -51,19 +51,14 @@ function App() {
         password: password,
       })
       .then(function (res) {
-        client
-          .post("api/login", {
-            email: email,
-            password: password,
-          })
-          .then(function (res) {
-            setCurrentUser(true);
-          });
+        submitLogin(null, false);
       });
   }
 
-  function submitLogin(e) {
-    e.preventDefault();
+  function submitLogin(e, prevent = true) {
+    if (prevent) {
+      e.preventDefault();
+    }
     client
       .post("api/login", {
         email: email,
