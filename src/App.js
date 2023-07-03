@@ -1,10 +1,9 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import Container from "react-bootstrap/Container";
-import Navbar from "react-bootstrap/Navbar";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import NavBar from "./components/Navbar";
 
 axios.defaults.xsrfCookieName = "csrftoken";
 axios.defaults.xsrfHeaderName = "X-CSRFToken";
@@ -82,48 +81,18 @@ function App() {
     });
   }
 
-  if (currentUser) {
-    return (
-      <div>
-        <Navbar bg="dark" variant="dark">
-          <Container>
-            <Navbar.Brand>Prorius</Navbar.Brand>
-            <Navbar.Toggle />
-            <Navbar.Collapse className="justify-content-end">
-              <Navbar.Text>
-                <Button
-                  type="submit"
-                  variant="light"
-                  onClick={(e) => submitLogout(e)}
-                >
-                  Sair
-                </Button>
-              </Navbar.Text>
-            </Navbar.Collapse>
-          </Container>
-        </Navbar>
+  return (
+    <div>
+      <NavBar
+        hasUser={!!currentUser}
+        logout={submitLogout}
+        changeForm={updateForm}
+      />
+      {currentUser ? (
         <div className="center">
           <h2>Você está logado!!!</h2>
         </div>
-      </div>
-    );
-  }
-  return (
-    <div>
-      <Navbar bg="dark" variant="dark">
-        <Container>
-          <Navbar.Brand>Prorius</Navbar.Brand>
-          <Navbar.Toggle />
-          <Navbar.Collapse className="justify-content-end">
-            <Navbar.Text>
-              <Button id="toggle-btn" onClick={updateForm} variant="light">
-                Ir para página de cadastro
-              </Button>
-            </Navbar.Text>
-          </Navbar.Collapse>
-        </Container>
-      </Navbar>
-      {registrationToggle ? (
+      ) : registrationToggle ? (
         <div className="center">
           <h2>Cadastro</h2>
           <Form onSubmit={(e) => submitRegistration(e)}>
