@@ -3,7 +3,9 @@ import { useState } from "react";
 import axios from "axios";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+
 import NavBar from "./components/Navbar";
+import WelcomeUser from "./components/WelcomeUser";
 
 axios.defaults.xsrfCookieName = "csrftoken";
 axios.defaults.xsrfHeaderName = "X-CSRFToken";
@@ -89,9 +91,7 @@ function App() {
         changeForm={updateForm}
       />
       {currentUser ? (
-        <div className="center">
-          <h2>Você está logado!!!</h2>
-        </div>
+        <WelcomeUser user={currentUser} />
       ) : registrationToggle ? (
         <div className="center">
           <h2>Cadastro</h2>
