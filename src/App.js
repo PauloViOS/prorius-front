@@ -7,6 +7,7 @@ import Form from "react-bootstrap/Form";
 import NavBar from "./components/Navbar";
 import WelcomeUser from "./components/WelcomeUser";
 import LoginForm from "./components/LoginForm";
+import RegistrationForm from "./components/RegistrationForm";
 import { Container, Row } from "react-bootstrap";
 
 axios.defaults.xsrfCookieName = "csrftoken";
@@ -111,54 +112,17 @@ function App() {
               updateUserInfo={getProfile}
             />
           ) : registrationToggle ? (
-            <div>
-              <h2>Cadastro</h2>
-              <Form onSubmit={(e) => submitRegistration(e)}>
-                <Form.Group className="mb-3" controlId="formBasicName">
-                  <Form.Label>Nome</Form.Label>
-                  <Form.Control
-                    type="text"
-                    placeholder="Insira seu nome"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                  />
-                </Form.Group>
-
-                <Form.Group className="mb-3" controlId="formBasicUsername">
-                  <Form.Label>Nome de usuário</Form.Label>
-                  <Form.Control
-                    type="text"
-                    placeholder="Insira um nome de usuário"
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                  />
-                </Form.Group>
-
-                <Form.Group className="mb-3" controlId="formBasicEmail">
-                  <Form.Label>Endereço de email</Form.Label>
-                  <Form.Control
-                    type="email"
-                    placeholder="Insira um email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                  />
-                </Form.Group>
-
-                <Form.Group className="mb-3" controlId="formBasicPassword">
-                  <Form.Label>Senha</Form.Label>
-                  <Form.Control
-                    type="password"
-                    placeholder="Insira uma senha"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                  />
-                </Form.Group>
-
-                <Button variant="primary" type="submit">
-                  Enviar
-                </Button>
-              </Form>
-            </div>
+            <RegistrationForm
+              handleSubmitRegistration={submitRegistration}
+              name={name}
+              onNameChange={setName}
+              username={username}
+              onUsernameChange={setUsername}
+              email={email}
+              onEmailChange={setEmail}
+              password={password}
+              onPasswordChange={setPassword}
+            />
           ) : (
             <LoginForm
               email={email}
