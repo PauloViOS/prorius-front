@@ -6,6 +6,7 @@ import Form from "react-bootstrap/Form";
 
 import NavBar from "./components/Navbar";
 import WelcomeUser from "./components/WelcomeUser";
+import LoginForm from "./components/LoginForm";
 import { Container, Row } from "react-bootstrap";
 
 axios.defaults.xsrfCookieName = "csrftoken";
@@ -159,34 +160,13 @@ function App() {
               </Form>
             </div>
           ) : (
-            <div>
-              <h2>Login</h2>
-              <Form onSubmit={(e) => submitLogin(e)}>
-                <Form.Group className="mb-3" controlId="formBasicEmail">
-                  <Form.Label>Endereço de email</Form.Label>
-                  <Form.Control
-                    type="email"
-                    placeholder="Insira seu email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                  />
-                </Form.Group>
-
-                <Form.Group className="mb-3" controlId="formBasicPassword">
-                  <Form.Label>Senha</Form.Label>
-                  <Form.Control
-                    type="password"
-                    placeholder="Senha"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                  />
-                </Form.Group>
-
-                <Button variant="primary" type="submit">
-                  Enviar
-                </Button>
-              </Form>
-            </div>
+            <LoginForm
+              email={email}
+              password={password}
+              handleSubmitLogin={submitLogin}
+              onEmailChange={setEmail}
+              onPasswordChange={setPassword}
+            />
           )}
         </Row>
       </Container>
