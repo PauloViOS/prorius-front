@@ -47,6 +47,9 @@ function App() {
       })
       .then(function (res) {
         submitLogin(null, false);
+      })
+      .catch(function (error) {
+        console.log(error.response.data);
       });
   }
 
