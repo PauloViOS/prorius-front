@@ -19,6 +19,7 @@ function LoginForm({
             placeholder="Insira seu email"
             value={email}
             onChange={(e) => onEmailChange(e.target.value)}
+            required
           />
         </Form.Group>
 
@@ -29,6 +30,7 @@ function LoginForm({
             placeholder="Senha"
             value={password}
             onChange={(e) => onPasswordChange(e.target.value)}
+            required
           />
         </Form.Group>
 

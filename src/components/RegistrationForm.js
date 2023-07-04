@@ -23,6 +23,7 @@ function RegistrationForm({
             placeholder="Insira seu nome"
             value={name}
             onChange={(e) => onNameChange(e.target.value)}
+            required
           />
         </Form.Group>
 
@@ -33,6 +34,7 @@ function RegistrationForm({
             placeholder="Insira um nome de usuário"
             value={username}
             onChange={(e) => onUsernameChange(e.target.value)}
+            required
           />
         </Form.Group>
 
@@ -43,6 +45,7 @@ function RegistrationForm({
             placeholder="Insira um email"
             value={email}
             onChange={(e) => onEmailChange(e.target.value)}
+            required
           />
         </Form.Group>
 
@@ -53,6 +56,7 @@ function RegistrationForm({
             placeholder="Insira uma senha"
             value={password}
             onChange={(e) => onPasswordChange(e.target.value)}
+            required
           />
         </Form.Group>
 

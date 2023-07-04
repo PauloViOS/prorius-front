@@ -52,7 +52,7 @@ function WelcomeUser({ user, updateOnLogout, updateUserInfo }) {
   }
 
   return (
-    <div className="center">
+    <div>
       <h2>Olá, {user.username}</h2>
       <p>
         <b>Seu email:</b> {user.email}
