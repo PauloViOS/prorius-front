@@ -1,8 +1,6 @@
 import React from "react";
 import { useState } from "react";
 import axios from "axios";
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
 
 import NavBar from "./components/Navbar";
 import WelcomeUser from "./components/WelcomeUser";
