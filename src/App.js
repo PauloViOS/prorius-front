@@ -161,7 +161,9 @@ function App() {
       })
       .then(getProfile)
       .catch(function (error) {
-        console.log(error.response.data);
+        toast.error(error.response.data.message, {
+          position: "bottom-center",
+        });
       });
   }
 
