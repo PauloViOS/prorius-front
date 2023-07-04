@@ -68,6 +68,9 @@ function App() {
         setName("");
         setUsername("");
         setPassword("");
+      })
+      .catch(function (error) {
+        console.log(error.response.data);
       });
   }
 
