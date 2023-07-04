@@ -7,6 +7,8 @@ import WelcomeUser from "./components/WelcomeUser";
 import LoginForm from "./components/LoginForm";
 import RegistrationForm from "./components/RegistrationForm";
 import { Container, Row } from "react-bootstrap";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 axios.defaults.xsrfCookieName = "csrftoken";
 axios.defaults.xsrfHeaderName = "X-CSRFToken";
@@ -37,8 +39,27 @@ function App() {
     setPassword("");
   }
 
+  function validatePassword() {
+    let lenPassword = password.length;
+    let hasSymbol = password.match(/[!@#$%^&*()\[\]{}|;:',<.>\/?_=+-]/);
+    let hasNumber = password.match(/\d/);
+    if (lenPassword >= 6 && hasSymbol && hasNumber) {
+      return true;
+    }
+    return false;
+  }
+
   function submitRegistration(e) {
     e.preventDefault();
+    if (!validatePassword(password)) {
+      toast.error(
+        "Senha deve ter ao menos 6 dígitos, ao menos um caracter especial e ao menos um número",
+        {
+          position: "bottom-center",
+        }
+      );
+      return;
+    }
     client
       .post("api/register", {
         name: name,
@@ -50,7 +71,17 @@ function App() {
         submitLogin(null, false);
       })
       .catch(function (error) {
-        console.log(error.response.data);
+        let errors = error.response.data;
+        if ("email" in errors) {
+          toast.error("Já existe um usuário usando este email", {
+            position: "bottom-center",
+          });
+        }
+        if ("username" in errors) {
+          toast.error("Já existe um usuário usando este nome de usuário", {
+            position: "bottom-center",
+          });
+        }
       });
   }
 
@@ -71,7 +102,9 @@ function App() {
         setPassword("");
       })
       .catch(function (error) {
-        console.log(error.response.data);
+        toast.error(error.response.data[0], {
+          position: "bottom-center",
+        });
       });
   }
 
@@ -94,6 +127,39 @@ function App() {
     setRegistrationToggle(false);
   }
 
+  function deleteProfile(e, email) {
+    e.preventDefault();
+    client
+      .delete("api/delete", {
+        data: {
+          email: email,
+        },
+      })
+      .then(
+        client
+          .post("api/logout", { withCredentials: true })
+          .then(function (res) {
+            resetUserAndToggle();
+          }) // toast vem aqui
+      );
+  }
+
+  function submitEdition(e, name, email, username, password, currentEmail) {
+    e.preventDefault();
+    client
+      .put("api/update", {
+        currentEmail: currentEmail,
+        name: name,
+        email: email,
+        username: username,
+        password: password,
+      })
+      .then(getProfile)
+      .catch(function (error) {
+        console.log(error.response.data);
+      });
+  }
+
   return (
     <div>
       <NavBar
@@ -106,8 +172,8 @@ function App() {
           {currentUser ? (
             <WelcomeUser
               user={currentUser}
-              updateOnLogout={resetUserAndToggle}
-              updateUserInfo={getProfile}
+              handleDelete={deleteProfile}
+              handleEdition={submitEdition}
             />
           ) : registrationToggle ? (
             <RegistrationForm
@@ -132,6 +198,7 @@ function App() {
           )}
         </Row>
       </Container>
+      <ToastContainer />
     </div>
   );
 }

@@ -12,44 +12,11 @@ const client = axios.create({
   baseURL: "http://127.0.0.1:8000",
 });
 
-function WelcomeUser({ user, updateOnLogout, updateUserInfo }) {
+function WelcomeUser({ user, handleDelete, handleEdition }) {
   const [newName, setNewName] = useState("");
   const [newUsername, setNewUsername] = useState("");
   const [newEmail, setNewEmail] = useState("");
   const [newPassword, setNewPassword] = useState("");
-
-  function deleteProfile(e, email) {
-    e.preventDefault();
-    client
-      .delete("api/delete", {
-        data: {
-          email: email,
-        },
-      })
-      .then(
-        client
-          .post("api/logout", { withCredentials: true })
-          .then(function (res) {
-            updateOnLogout();
-          })
-      );
-  }
-
-  function submitEdition(e) {
-    e.preventDefault();
-    client
-      .put("api/update", {
-        currentEmail: user.email,
-        name: newName,
-        email: newEmail,
-        username: newUsername,
-        password: newPassword,
-      })
-      .then(updateUserInfo)
-      .catch(function (error) {
-        console.log(error.response.data);
-      });
-  }
 
   return (
     <div>
@@ -65,7 +32,18 @@ function WelcomeUser({ user, updateOnLogout, updateUserInfo }) {
       </p>
 
       <h3 className="mt-5">Formulário para edição do registro</h3>
-      <Form onSubmit={(e) => submitEdition(e)}>
+      <Form
+        onSubmit={(e) =>
+          handleEdition(
+            e,
+            newName,
+            newEmail,
+            newUsername,
+            newPassword,
+            user.email
+          )
+        }
+      >
         <Form.Group className="mb-3" controlId="formBasicName">
           <Form.Label>Nome</Form.Label>
           <Form.Control
@@ -112,7 +90,7 @@ function WelcomeUser({ user, updateOnLogout, updateUserInfo }) {
       </Form>
 
       <h2 className="mt-5">Deletar perfil</h2>
-      <Button variant="danger" onClick={(e) => deleteProfile(e, user.email)}>
+      <Button variant="danger" onClick={(e) => handleDelete(e, user.email)}>
         Deletar meu perfil
       </Button>
     </div>
