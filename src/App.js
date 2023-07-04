@@ -107,6 +107,7 @@ function App() {
             <WelcomeUser
               user={currentUser}
               updateOnLogout={resetUserAndToggle}
+              updateUserInfo={getProfile}
             />
           ) : registrationToggle ? (
             <div>
