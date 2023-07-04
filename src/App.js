@@ -140,7 +140,12 @@ function App() {
           .post("api/logout", { withCredentials: true })
           .then(function (res) {
             resetUserAndToggle();
-          }) // toast vem aqui
+          })
+          .then(
+            toast.success("Usuário deletado", {
+              position: "bottom-center",
+            })
+          )
       );
   }
 
