@@ -85,6 +85,11 @@ function App() {
     });
   }
 
+  function resetUserAndToggle() {
+    setCurrentUser(null);
+    setRegistrationToggle(false);
+  }
+
   return (
     <div>
       <NavBar
@@ -93,7 +98,7 @@ function App() {
         changeForm={updateForm}
       />
       {currentUser ? (
-        <WelcomeUser user={currentUser} />
+        <WelcomeUser user={currentUser} updateOnLogout={resetUserAndToggle} />
       ) : registrationToggle ? (
         <div className="center">
           <h2>Cadastro</h2>
