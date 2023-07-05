@@ -7,7 +7,6 @@ function WelcomeUser({ user, handleDelete, handleEdition }) {
   const [newName, setNewName] = useState("");
   const [newUsername, setNewUsername] = useState("");
   const [newEmail, setNewEmail] = useState("");
-  const [newPassword, setNewPassword] = useState("");
 
   return (
     <div>
@@ -25,14 +24,7 @@ function WelcomeUser({ user, handleDelete, handleEdition }) {
       <h3 className="mt-5">Formulário para edição do registro</h3>
       <Form
         onSubmit={(e) =>
-          handleEdition(
-            e,
-            newName,
-            newEmail,
-            newUsername,
-            newPassword,
-            user.email
-          )
+          handleEdition(e, newName, newEmail, newUsername, user.email)
         }
       >
         <Form.Group className="mb-3" controlId="formBasicName">
@@ -62,16 +54,6 @@ function WelcomeUser({ user, handleDelete, handleEdition }) {
             placeholder="Insira um novo email"
             value={newEmail}
             onChange={(e) => setNewEmail(e.target.value)}
-          />
-        </Form.Group>
-
-        <Form.Group className="mb-3" controlId="formBasicPassword">
-          <Form.Label>Senha</Form.Label>
-          <Form.Control
-            type="password"
-            placeholder="Insira uma nova senha"
-            value={newPassword}
-            onChange={(e) => setNewPassword(e.target.value)}
           />
         </Form.Group>
 

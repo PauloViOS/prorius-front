@@ -149,15 +149,14 @@ function App() {
       );
   }
 
-  function submitEdition(e, name, email, username, password, currentEmail) {
+  function submitEdition(e, name, email, username, currentEmail) {
     e.preventDefault();
     client
       .put("api/update", {
-        currentEmail: currentEmail,
+        current_email: currentEmail,
         name: name,
         email: email,
         username: username,
-        password: password,
       })
       .then(getProfile)
       .catch(function (error) {
