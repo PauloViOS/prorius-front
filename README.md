@@ -1,4 +1,4 @@
-Pequena aplicação que funciona em conjunto com o projeto presente no repositório prorius-back.
+Pequena aplicação que funciona em conjunto com o projeto presente no repositório [prorius-back](https://github.com/PauloViOS/prorius-back).
 
 Para rodar essa aplicação:
 
